@@ -9,6 +9,9 @@ import {
   SearchOutlined,
 } from '@ant-design/icons'
 import { useAuthStore } from '@features/auth/model/authStore'
+import { useLanguage } from '@shared/contexts/useLanguage'
+import { LanguageSwitcher } from '@shared/components/LanguageSwitcher'
+import { ThemeToggle } from '@shared/components/ThemeToggle'
 
 const { Header, Sider, Content } = Layout
 const { Title } = Typography
@@ -24,6 +27,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   const location = useLocation()
   const logout = useAuthStore((state) => state.logout)
   const subdomain = useAuthStore((state) => state.subdomain)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const checkMobile = () => {
@@ -47,12 +51,12 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
     {
       key: '/products',
       icon: <ShoppingOutlined />,
-      label: 'Products',
+      label: t('menu.products'),
     },
     {
       key: '/search',
       icon: <SearchOutlined />,
-      label: 'Search',
+      label: t('menu.search'),
     },
   ]
 
@@ -158,10 +162,12 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
               }}
             />
             <Title level={4} style={{ margin: 0, fontWeight: 500, fontSize: isMobile ? 16 : 18 }}>
-              {location.pathname === '/products' ? 'Products' : 'Search Products'}
+              {location.pathname === '/products' ? t('header.products') : t('header.search')}
             </Title>
           </Space>
           <Space>
+            <LanguageSwitcher isMobile={isMobile} />
+            <ThemeToggle />
             <Avatar
               style={{
                 background: '#165DF5',
@@ -177,7 +183,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
                 transition: 'all 0.15s ease',
               }}
             >
-              {!isMobile && 'Logout'}
+              {!isMobile && t('header.logout')}
             </Button>
           </Space>
         </Header>

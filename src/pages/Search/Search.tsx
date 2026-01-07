@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Input, Table, Card, Skeleton, Typography } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { searchApi } from '@features/products/api/searchApi'
+import { useLanguage } from '@shared/contexts/useLanguage'
 import { searchProducts } from '@shared/utils/search'
 import type { Product } from '@shared/types/api'
 
@@ -14,6 +15,7 @@ export const Search = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const checkMobile = () => {
@@ -70,25 +72,25 @@ export const Search = () => {
       },
     },
     {
-      title: 'ID',
+      title: t('search.table.id'),
       dataIndex: 'id',
       key: 'id',
       width: 80,
     },
     {
-      title: 'Name',
+      title: t('search.table.name'),
       dataIndex: 'name',
       key: 'name',
       render: (name: string) => highlightText(name, searchQuery),
     },
     {
-      title: 'SKU',
+      title: t('search.table.sku'),
       dataIndex: 'sku',
       key: 'sku',
       render: (sku: string) => (sku ? highlightText(sku, searchQuery) : '-'),
     },
     {
-      title: 'Price',
+      title: t('search.table.price'),
       dataIndex: 'price',
       key: 'price',
       render: (price: number) => (price ? `$${price.toFixed(2)}` : '-'),
@@ -126,7 +128,7 @@ export const Search = () => {
         }}
       >
         <Input.Search
-          placeholder="Search products by name or SKU..."
+          placeholder={t('search.placeholder')}
           allowClear
           size="large"
           value={searchQuery}
@@ -137,7 +139,10 @@ export const Search = () => {
         />
         {searchQuery && (
           <Text type="secondary" style={{ display: 'block', marginTop: 8 }}>
-            Found {filteredProducts.length} {filteredProducts.length === 1 ? 'result' : 'results'}
+            {t('search.found', {
+              count: filteredProducts.length,
+              results: filteredProducts.length === 1 ? t('search.result') : t('search.results'),
+            })}
           </Text>
         )}
       </div>
@@ -163,7 +168,7 @@ export const Search = () => {
                 setPageSize(size)
                 setCurrentPage(1)
               },
-              showTotal: (total) => `Total ${total} items`,
+              showTotal: (total) => t('search.pagination.total', { count: total }),
               style: {
                 marginTop: 16,
               },

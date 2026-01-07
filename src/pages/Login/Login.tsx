@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Layout, Form, Input, Button, Typography, App } from 'antd'
+import { Layout, Form, Input, Button, Typography, App, Space } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { authApi } from '@features/auth/api/authApi'
 import { useAuthStore } from '@features/auth/model/authStore'
+import { useLanguage } from '@shared/contexts/useLanguage'
+import { LanguageSwitcher } from '@shared/components/LanguageSwitcher'
+import { ThemeToggle } from '@shared/components/ThemeToggle'
 import { env } from '@shared/config/env'
 import type { AuthRequest } from '@shared/types/api'
 
@@ -16,6 +19,7 @@ export const Login = () => {
   const navigate = useNavigate()
   const login = useAuthStore((state) => state.login)
   const { message } = App.useApp()
+  const { t } = useLanguage()
 
   useEffect(() => {
     const checkResponsive = () => {
@@ -33,10 +37,10 @@ export const Login = () => {
       setLoading(true)
       const response = await authApi.login(values)
       login(response.token, values.subdomain)
-      message.success('Muvaffaqiyatli kirildi')
+      message.success(t('login.success'))
       navigate('/products')
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Login yoki parol noto'g'ri"
+      const errorMessage = error instanceof Error ? error.message : t('login.error')
       message.error(errorMessage)
     } finally {
       setLoading(false)
@@ -44,7 +48,21 @@ export const Login = () => {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#fff' }}>
+    <Layout style={{ minHeight: '100vh' }}>
+      {/* Header with language and theme controls */}
+      <div
+        style={{
+          position: 'absolute',
+          top: isMobile ? 16 : 24,
+          right: isMobile ? 16 : 24,
+          zIndex: 1000,
+        }}
+      >
+        <Space>
+          <LanguageSwitcher isMobile={isMobile} />
+          <ThemeToggle />
+        </Space>
+      </div>
       <div
         style={{
           display: 'flex',
@@ -93,7 +111,7 @@ export const Login = () => {
                   color: '#0B2338',
                 }}
               >
-                {env.appTitle}
+                {t('login.branding.title')}
               </Title>
               <Text
                 style={{
@@ -102,7 +120,7 @@ export const Login = () => {
                   lineHeight: 1.6,
                 }}
               >
-                Professional admin panel for managing your business operations
+                {t('login.branding.subtitle')}
               </Text>
             </div>
           </div>
@@ -117,7 +135,6 @@ export const Login = () => {
             justifyContent: 'center',
             alignItems: 'center',
             padding: isMobile ? '32px 24px' : isTablet ? '48px' : '60px',
-            background: '#fff',
           }}
         >
           {isMobile && (
@@ -154,7 +171,7 @@ export const Login = () => {
                   fontSize: isMobile ? 24 : 28,
                 }}
               >
-                Welcome back
+                {t('login.welcome')}
               </Title>
               <Text
                 style={{
@@ -162,7 +179,7 @@ export const Login = () => {
                   fontSize: isMobile ? 14 : 16,
                 }}
               >
-                Tizimga kirish uchun ma'lumotlaringizni kiriting
+                {t('login.subtitle')}
               </Text>
             </div>
 
@@ -174,30 +191,30 @@ export const Login = () => {
               size="large"
             >
               <Form.Item
-                label={<span style={{ fontWeight: 500 }}>Subdomain</span>}
+                label={<span style={{ fontWeight: 500 }}>{t('login.subdomain')}</span>}
                 name="subdomain"
-                rules={[{ required: true, message: 'Subdomain kiriting' }]}
+                rules={[{ required: true, message: t('login.subdomain.required') }]}
                 style={{ marginBottom: 20 }}
               >
-                <Input placeholder="subdomain" />
+                <Input placeholder={t('login.subdomain.placeholder')} />
               </Form.Item>
 
               <Form.Item
-                label={<span style={{ fontWeight: 500 }}>Username</span>}
+                label={<span style={{ fontWeight: 500 }}>{t('login.username')}</span>}
                 name="username"
-                rules={[{ required: true, message: 'Username kiriting' }]}
+                rules={[{ required: true, message: t('login.username.required') }]}
                 style={{ marginBottom: 20 }}
               >
-                <Input placeholder="username" />
+                <Input placeholder={t('login.username.placeholder')} />
               </Form.Item>
 
               <Form.Item
-                label={<span style={{ fontWeight: 500 }}>Password</span>}
+                label={<span style={{ fontWeight: 500 }}>{t('login.password')}</span>}
                 name="password"
-                rules={[{ required: true, message: 'Parol kiriting' }]}
+                rules={[{ required: true, message: t('login.password.required') }]}
                 style={{ marginBottom: 20 }}
               >
-                <Input.Password placeholder="password" />
+                <Input.Password placeholder={t('login.password.placeholder')} />
               </Form.Item>
 
               <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
@@ -214,7 +231,7 @@ export const Login = () => {
                     transition: 'all 0.15s ease',
                   }}
                 >
-                  Kirish
+                  {t('login.submit')}
                 </Button>
               </Form.Item>
             </Form>

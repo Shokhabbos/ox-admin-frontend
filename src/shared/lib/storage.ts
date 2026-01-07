@@ -1,5 +1,7 @@
 const TOKEN_KEY = 'token'
 const SUBDOMAIN_KEY = 'subdomain'
+const LANGUAGE_KEY = 'language'
+const THEME_KEY = 'theme'
 
 export const storage = {
   getToken: (): string | null => {
@@ -24,6 +26,22 @@ export const storage = {
 
   removeSubdomain: (): void => {
     localStorage.removeItem(SUBDOMAIN_KEY)
+  },
+
+  getLanguage: (): string | null => {
+    return localStorage.getItem(LANGUAGE_KEY)
+  },
+
+  setLanguage: (language: string): void => {
+    localStorage.setItem(LANGUAGE_KEY, language)
+  },
+
+  getTheme: (): string | null => {
+    return localStorage.getItem(THEME_KEY)
+  },
+
+  setTheme: (theme: string): void => {
+    localStorage.setItem(THEME_KEY, theme)
   },
 
   clear: (): void => {

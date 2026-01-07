@@ -117,6 +117,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Smooth theme transitions */
+*,
+*::before,
+*::after {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Exclude certain elements from theme transition for performance */
+.ant-table,
+.ant-table *,
+.ant-menu,
+.ant-menu * {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .ant-card-body {

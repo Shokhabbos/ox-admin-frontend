@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Table, Card, Skeleton } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { productsApi } from '@features/products/api/productsApi'
+import { useLanguage } from '@shared/contexts/useLanguage'
 import type { Product } from '@shared/types/api'
 
 export const Products = () => {
@@ -11,6 +12,7 @@ export const Products = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [isMobile, setIsMobile] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const checkMobile = () => {
@@ -56,23 +58,23 @@ export const Products = () => {
       },
     },
     {
-      title: 'ID',
+      title: t('products.table.id'),
       dataIndex: 'id',
       key: 'id',
       width: 80,
     },
     {
-      title: 'Name',
+      title: t('products.table.name'),
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'SKU',
+      title: t('products.table.sku'),
       dataIndex: 'sku',
       key: 'sku',
     },
     {
-      title: 'Price',
+      title: t('products.table.price'),
       dataIndex: 'price',
       key: 'price',
       render: (price: number) => (price ? `$${price.toFixed(2)}` : '-'),
@@ -114,7 +116,7 @@ export const Products = () => {
                 setCurrentPage(1)
                 fetchProducts(1, size)
               },
-              showTotal: (total) => `Total ${total} items`,
+              showTotal: (total) => t('products.pagination.total', { count: total }),
               style: {
                 marginTop: 16,
               },
