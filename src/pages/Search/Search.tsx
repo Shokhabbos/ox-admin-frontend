@@ -3,6 +3,7 @@ import { Input, Table, Card, Skeleton, Typography } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { searchApi } from '@features/products/api/searchApi'
 import { useLanguage } from '@shared/contexts/useLanguage'
+import { useTheme } from '@shared/contexts/useTheme'
 import { searchProducts } from '@shared/utils/search'
 import type { Product } from '@shared/types/api'
 
@@ -16,6 +17,7 @@ export const Search = () => {
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
   const { t } = useLanguage()
+  const { actualTheme } = useTheme()
 
   useEffect(() => {
     const checkMobile = () => {
@@ -52,7 +54,13 @@ export const Search = () => {
     const parts = text.split(new RegExp(`(${query})`, 'gi'))
     return parts.map((part, index) =>
       part.toLowerCase() === query.toLowerCase() ? (
-        <span key={index} style={{ backgroundColor: '#fffbe6', fontWeight: 500 }}>
+        <span
+          key={index}
+          style={{
+            backgroundColor: actualTheme === 'dark' ? '#2a2a2a' : '#fffbe6',
+            fontWeight: 500,
+          }}
+        >
           {part}
         </span>
       ) : (
@@ -116,7 +124,7 @@ export const Search = () => {
           position: 'sticky',
           top: 0,
           zIndex: 10,
-          background: '#fff',
+          background: actualTheme === 'dark' ? '#141414' : '#fff',
           paddingTop: isMobile ? 16 : 24,
           paddingBottom: 12,
           marginTop: isMobile ? -16 : -24,
@@ -124,7 +132,8 @@ export const Search = () => {
           marginRight: isMobile ? -16 : -24,
           paddingLeft: isMobile ? 16 : 24,
           paddingRight: isMobile ? 16 : 24,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+          boxShadow:
+            actualTheme === 'dark' ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.06)',
         }}
       >
         <Input.Search

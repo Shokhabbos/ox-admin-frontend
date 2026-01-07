@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons'
 import { useAuthStore } from '@features/auth/model/authStore'
 import { useLanguage } from '@shared/contexts/useLanguage'
+import { useTheme } from '@shared/contexts/useTheme'
 import { LanguageSwitcher } from '@shared/components/LanguageSwitcher'
 import { ThemeToggle } from '@shared/components/ThemeToggle'
 
@@ -28,6 +29,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   const logout = useAuthStore((state) => state.logout)
   const subdomain = useAuthStore((state) => state.subdomain)
   const { t } = useLanguage()
+  const { actualTheme } = useTheme()
 
   useEffect(() => {
     const checkMobile = () => {
@@ -137,13 +139,14 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
       <Layout style={{ overflow: 'hidden' }}>
         <Header
           style={{
-            background: '#fff',
+            background: actualTheme === 'dark' ? '#141414' : '#fff',
             padding: isMobile ? '0 16px' : '0 24px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-            borderBottom: '1px solid #f0f0f0',
+            boxShadow:
+              actualTheme === 'dark' ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.06)',
+            borderBottom: actualTheme === 'dark' ? '1px solid #303030' : '1px solid #f0f0f0',
             position: 'sticky',
             top: 0,
             zIndex: 999,

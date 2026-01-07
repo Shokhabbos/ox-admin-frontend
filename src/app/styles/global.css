@@ -16,9 +16,23 @@
 }
 
 /* Table row hover effect */
+.ant-table-tbody > tr {
+  cursor: pointer;
+}
+
 .ant-table-tbody > tr:hover > td {
-  background-color: #fafafa !important;
   transition: background-color 0.15s ease;
+}
+
+/* Light mode table row hover */
+html[data-theme='light'] .ant-table-tbody > tr:hover > td,
+html:not([data-theme]) .ant-table-tbody > tr:hover > td {
+  background-color: #fafafa !important;
+}
+
+/* Dark mode table row hover */
+html[data-theme='dark'] .ant-table-tbody > tr:hover > td {
+  background-color: #262626 !important;
 }
 
 /* Table scrollbar styling */
