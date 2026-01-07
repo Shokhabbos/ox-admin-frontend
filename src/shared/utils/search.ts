@@ -1,4 +1,4 @@
-import { Product } from '../types/api'
+import type { Product } from '@shared/types/api'
 
 export interface SearchResult {
   product: Product

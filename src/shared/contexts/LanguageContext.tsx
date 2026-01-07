@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect, ReactNode } from 'react'
 import { storage } from '../lib/storage'
 import en from '../locales/en.json'
 import ru from '../locales/ru.json'

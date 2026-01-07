@@ -7,7 +7,7 @@ import type { Language } from '@shared/contexts/languageContextDef'
 const languageLabels: Record<Language, string> = {
   en: 'English',
   ru: 'Русский',
-  uz: `"O'zbek"`,
+  uz: "O'zbek",
 }
 
 export const LanguageSwitcher = ({ isMobile = false }: { isMobile?: boolean }) => {
