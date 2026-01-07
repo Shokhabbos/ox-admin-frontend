@@ -1,0 +1,179 @@
+
+/* Page fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Table row hover effect */
+.ant-table-tbody > tr:hover > td {
+  background-color: #fafafa !important;
+  transition: background-color 0.15s ease;
+}
+
+/* Table scrollbar styling */
+.ant-table-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.ant-table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.ant-table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.ant-table-wrapper::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.ant-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Firefox scrollbar */
+.ant-table-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+/* Button hover transitions */
+.ant-btn {
+  transition: all 0.15s ease !important;
+}
+
+.ant-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 93, 245, 0.3);
+}
+
+/* Card hover effect */
+.ant-card {
+  transition: box-shadow 0.2s ease;
+}
+
+/* Input focus effect */
+.ant-input:focus,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: #165DF5;
+  box-shadow: 0 0 0 2px rgba(22, 93, 245, 0.1);
+  transition: all 0.15s ease;
+}
+
+/* Form spacing */
+.ant-form-vertical .ant-form-item-label {
+  padding-bottom: 4px !important;
+}
+
+.ant-form-vertical .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* Menu item hover */
+.ant-menu-item:hover {
+  transition: all 0.15s ease;
+}
+
+/* Sidebar scrollbar styling */
+.ant-layout-sider .ant-menu {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.ant-layout-sider .ant-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ant-layout-sider .ant-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ant-layout-sider .ant-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.ant-layout-sider .ant-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .ant-card-body {
+    padding: 16px !important;
+  }
+
+  .ant-table {
+    font-size: 14px;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 12px 8px !important;
+    font-size: 12px;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 12px 8px !important;
+  }
+
+  .ant-pagination {
+    margin-top: 12px !important;
+  }
+
+  .ant-pagination-item,
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    min-width: 28px;
+    height: 28px;
+    line-height: 28px;
+    margin: 0 2px;
+  }
+
+  .ant-input-search {
+    margin-bottom: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ant-card {
+    border-radius: 8px !important;
+  }
+
+  .ant-table {
+    font-size: 12px;
+  }
+
+  .ant-pagination-item {
+    display: none;
+  }
+
+  .ant-pagination-item-active {
+    display: inline-block;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    display: inline-block;
+  }
+}
+

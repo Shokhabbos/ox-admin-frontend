@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG="$(cat "$COMMIT_MSG_FILE")"
+
+# Conventional Commit pattern: type(scope?): short description
+# Allowed types: feat, fix, chore, docs, refactor, test, ci, style
+PATTERN='^(feat|fix|chore|docs|refactor|test|ci|style)(\([^\n()]+\))?: .{1,80}$'
+
+if echo "$COMMIT_MSG" | grep -Eq "$PATTERN"; then
+  echo "✅ Commit message accepted."
+  exit 0
+else
+  echo "❌ Invalid commit message format."
+  echo "  Example: feat(auth): add login UI"
+  echo "  Allowed types: feat, fix, chore, docs, refactor, test, ci, style"
+  exit 1
+fi
